@@ -1,41 +1,28 @@
-# encoding=utf-8
 '''
-题目：按奇偶排序数组 II
-给定一个非负整数数组A， A 中一半整数是奇数，一半整数是偶数。
-对数组进行排序，以便当A[i] 为奇数时，i也是奇数；当A[i]为偶数时， i 也是偶数。
-你可以返回任何满足上述条件的数组作为答案。
-
-提示：
-2 <= A.length <= 20000
-A.length % 2 == 0
-0 <= A[i] <= 1000
+有一个字符串，里面包含各种类型的字符，现在需要做的是判断里面的括号是否匹配，
+括号包括{ [ (三种，匹配返回true，不匹配返回false。举例 {  9 ( 1 )} ( )  返回true，{ ( } )返回false，（{ }）返回false
 '''
 
+_map  = {"{":"}","[":"]","(":")"}
+# _str = "{[1(123)]}"
+_str = "{[1(123)]}["
 
-array_list = [4,2,5,7,2,3]
-class Solution(object):
-    def sortArrayByParityII(self, A):
-        """
-        :type A: List[int]
-        :rtype: List[int]
-        """
-        if 2 <= len(A) <= 20000 and len(A) % 2 == 0:
-            odd_list = []
-            even_list = []
-            final_list = []
-            for num in A:
-                if(0 <= num <= 1000):
-                    if (num % 2 == 0):
-                        even_list.append(num)
-                    else:
-                        odd_list.append(num)
-                else:
-                    raise ValueError
-            for i in range(len(A) // 2):
-                final_list.append(odd_list[i])
-                final_list.append(even_list[i])
-            return final_list
-        else:
-            raise ValueError
+def judge_map(str_param):
+    str_list = list(str_param)
 
-result = Solution().sortArrayByParityII(array_list) #  184 ms  15.2 MB
+    disk = []
+
+    for str in str_list:
+        if(str in _map.keys()):
+            disk.append(str)
+        elif(str in _map.values()):
+            temp = disk.pop()
+            print(temp)
+            if(_map[temp] != str):
+                print("false")
+
+    print(disk)
+    assert len(disk) == 0
+
+judge_map(_str)
+
